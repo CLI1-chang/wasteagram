@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:wasteagram/screens/new_entry.dart';
+import 'package:wasteagram/screens/detail_screen.dart';
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({Key key, this.title}) : super(key: key);
@@ -9,13 +10,14 @@ class MyHomePage extends StatelessWidget {
 
   Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
     DateTime now = document['date'].toDate();
-    String formattedDate = DateFormat('MMM d y').format(now);
+    String formattedDate = DateFormat('EEEE, MMM d, y').format(now);
     return ListTile(
       title: Row(
         children: [
           Expanded(
             child: Text(
               formattedDate,
+              style: Theme.of(context).textTheme.headline6,
             ),
           ),
           Container(
@@ -28,7 +30,10 @@ class MyHomePage extends StatelessWidget {
         ],
       ),
       onTap: () {
-        print("Detail Screen will go here.");
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => DetailScreen()),
+        );
       },
     );
   }
