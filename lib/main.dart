@@ -38,9 +38,6 @@ class MyHomePage extends StatelessWidget {
             ),
           ),
           Container(
-            decoration: const BoxDecoration(
-              color: Color(0xffddddff),
-            ),
             padding: const EdgeInsets.all(10.0),
             child: Text(
               document['quantity'].toString(),
@@ -64,7 +61,8 @@ class MyHomePage extends StatelessWidget {
       body: StreamBuilder(
           stream: Firestore.instance.collection('posts').snapshots(),
           builder: (context, snapshot) {
-            if (!snapshot.hasData) return const Text('Loading...');
+            if (snapshot.data.documents.isEmpty)
+              return Center(child: CircularProgressIndicator());
             return ListView.builder(
               itemExtent: 80.0,
               itemCount: snapshot.data.documents.length,
