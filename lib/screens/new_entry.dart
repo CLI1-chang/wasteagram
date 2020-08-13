@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class NewEntry extends StatefulWidget {
   static const routeName = '/new-entry';
@@ -20,10 +21,14 @@ class _NewEntryState extends State<NewEntry> {
           title: Text('New Entry'),
         ),
         body: RaisedButton(
+            child: Text('Save Entry'),
             onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Text('Save Entry')),
+              Firestore.instance.collection('posts').add({
+                'date': DateTime.now(),
+                'quantity': 9,
+                'imageURL': 'neopets.com',
+              });
+            }),
       ),
     );
   }

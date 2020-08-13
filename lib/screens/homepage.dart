@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:wasteagram/screens/new_entry.dart';
 import 'package:wasteagram/screens/detail_screen.dart';
+import 'package:wasteagram/screens/camera_screen.dart';
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({Key key, this.title}) : super(key: key);
@@ -45,12 +46,14 @@ class MyHomePage extends StatelessWidget {
         title: Text(title),
       ),
       body: StreamBuilder(
-          stream: Firestore.instance.collection('posts').snapshots(),
+          stream: Firestore.instance
+              .collection('posts')
+              .orderBy("date", descending: true)
+              .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.data.documents.isEmpty)
               return Center(child: CircularProgressIndicator());
             return ListView.builder(
-              itemExtent: 80.0,
               itemCount: snapshot.data.documents.length,
               itemBuilder: (context, index) =>
                   _buildListItem(context, snapshot.data.documents[index]),
@@ -60,7 +63,7 @@ class MyHomePage extends StatelessWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => NewEntry()),
+            MaterialPageRoute(builder: (context) => CameraScreen()),
           );
         },
         child: Icon(Icons.photo_camera),

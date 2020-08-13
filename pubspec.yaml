@@ -25,6 +25,8 @@ dependencies:
   cloud_firestore:
 
   intl:
+
+  image_picker:
   
   flutter:
     sdk: flutter
