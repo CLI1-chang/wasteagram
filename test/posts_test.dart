@@ -1,5 +1,6 @@
 import 'package:test/test.dart';
 import 'package:wasteagram/models/posts.dart';
+import 'package:intl/intl.dart';
 
 void main() {
   test('Post should be successfully created', () {
@@ -22,5 +23,13 @@ void main() {
     expect(post.latitude, testLatitude);
     expect(post.longitude, testLongitude);
     expect(post.quantity, testQuantity);
+  });
+
+  test('FormatDate function should format the date', () {
+    Post post = Post();
+    DateTime testDate = DateTime.now();
+    String formattedDate = DateFormat('EEEE, MMM d, y').format(testDate);
+
+    expect(post.formatDate(testDate), formattedDate);
   });
 }

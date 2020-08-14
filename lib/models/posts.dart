@@ -11,7 +11,7 @@ class Post {
     this.quantity = 0;
   }
 
-  String formatDate() {
-    return DateFormat('EEEE, MMM d, y').format(DateTime.now());
+  String formatDate(DateTime dateToFormat) {
+    return DateFormat('EEEE, MMM d, y').format(dateToFormat);
   }
 }

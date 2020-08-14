@@ -14,10 +14,14 @@ class CameraScreen extends StatefulWidget {
 
 class _CameraScreenState extends State<CameraScreen> {
   File image;
+  final picker = ImagePicker();
 
   Future getImage() async {
     String unique = DateTime.now().toString();
-    image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    setState(() {
+      image = File(pickedFile.path);
+    });
     if (image != null) {
       StorageReference storageRef =
           FirebaseStorage.instance.ref().child('$unique');
