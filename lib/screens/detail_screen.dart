@@ -9,6 +9,7 @@ class DetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // get date from database & format it in advance
     DateTime displayDate = document['date'].toDate();
     String formattedDate = DateFormat('EEEE, MMM d, y').format(displayDate);
     return MaterialApp(

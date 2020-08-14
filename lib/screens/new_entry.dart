@@ -14,6 +14,7 @@ class NewEntry extends StatefulWidget {
 
 class _NewEntryState extends State<NewEntry> {
   LocationData locationData;
+  final formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -48,15 +49,20 @@ class _NewEntryState extends State<NewEntry> {
             ),
             title: Text('New Entry'),
           ),
-          body: RaisedButton(
-              child: Text('Save Entry'),
-              onPressed: () {
-                Firestore.instance.collection('posts').add({
-                  'date': DateTime.now(),
-                  'quantity': 9,
-                  'imageURL': 'neopets.com',
-                });
-              }),
+          body: Form(
+            key: formKey,
+            child: Center(
+              child: Column(
+                children: [
+                  Container(
+                      // image fits just within vertical screen
+                      height: 350.0,
+                      width: 350.0,
+                      child: Image.network(widget.url)),
+                ],
+              ),
+            ),
+          ),
         ),
       );
     }
