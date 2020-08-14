@@ -45,7 +45,7 @@ class _CameraScreenState extends State<CameraScreen> {
     return MaterialApp(
       theme: ThemeData.dark().copyWith(
         primaryColor: Colors.blueGrey,
-        accentColor: Colors.amber,
+        accentColor: Colors.blueGrey,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: Scaffold(

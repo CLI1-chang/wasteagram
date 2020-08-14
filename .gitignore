@@ -1,2 +1,6 @@
-
-build/ios/Debug-iphonesimulator/FirebaseFirestore/FirebaseFirestore.framework/FirebaseFirestore
+ios/
+android/
+build/
+test/
+.dart_tool/
+test/

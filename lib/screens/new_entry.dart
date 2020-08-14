@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/services.dart';
 import 'package:location/location.dart';
 import 'package:wasteagram/screens/homepage.dart';
 
@@ -35,7 +36,7 @@ class _NewEntryState extends State<NewEntry> {
       return MaterialApp(
         theme: ThemeData.dark().copyWith(
           primaryColor: Colors.blueGrey,
-          accentColor: Colors.amber,
+          accentColor: Colors.blueGrey,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         home: Scaffold(
@@ -52,14 +53,41 @@ class _NewEntryState extends State<NewEntry> {
           body: Form(
             key: formKey,
             child: Center(
-              child: Column(
-                children: [
-                  Container(
-                      // image fits just within vertical screen
-                      height: 350.0,
-                      width: 350.0,
-                      child: Image.network(widget.url)),
-                ],
+              child: SingleChildScrollView(
+                // this is here so I don't get pixel overflows when using
+                // the keyboard (cmd + k to show it on iOS emulator)
+                child: Column(
+                  children: [
+                    Container(
+                        height: 350.0,
+                        width: 350.0,
+                        child: Image.network(widget.url)),
+                    Container(
+                      width: 300.0,
+                      margin: const EdgeInsets.only(bottom: 25.0),
+                      child: TextField(
+                        style: TextStyle(
+                          color: Colors.black,
+                        ),
+                        decoration: new InputDecoration(
+                            labelText: "Number of items wasted"),
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          WhitelistingTextInputFormatter.digitsOnly
+                        ],
+                      ),
+                    ),
+                    RaisedButton(
+                        color: Colors.white,
+                        child: Text('Submit',
+                            style: TextStyle(
+                              color: Colors.black,
+                            )),
+                        onPressed: () async {
+                          formKey.currentState.save();
+                        }),
+                  ],
+                ),
               ),
             ),
           ),

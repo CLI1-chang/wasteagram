@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
       title: 'Wasteagram',
       theme: ThemeData.dark().copyWith(
         primaryColor: Colors.blueGrey,
-        accentColor: Colors.amber,
+        accentColor: Colors.blueGrey,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: const MyHomePage(title: 'Wasteagram'),
