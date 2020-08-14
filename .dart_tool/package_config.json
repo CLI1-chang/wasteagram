@@ -92,6 +92,12 @@
       "languageVersion": "2.0"
     },
     {
+      "name": "firebase_storage",
+      "rootUri": "file:///Users/vickifisher1/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_storage-3.1.6",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
       "name": "flutter",
       "rootUri": "file:///Users/vickifisher1/flutter/flutter/packages/flutter",
       "packageUri": "lib/",
@@ -266,7 +272,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2020-08-13T22:41:16.083169Z",
+  "generated": "2020-08-14T00:54:31.320385Z",
   "generator": "pub",
   "generatorVersion": "2.9.0"
 }

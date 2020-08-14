@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
-import 'package:wasteagram/screens/new_entry.dart';
 import 'package:wasteagram/screens/detail_screen.dart';
 import 'package:wasteagram/screens/camera_screen.dart';
 
 class MyHomePage extends StatelessWidget {
+  static const routeName = '/homepage';
   const MyHomePage({Key key, this.title}) : super(key: key);
   final String title;
 
@@ -43,6 +43,9 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+          // following line stops back button from appearing on homepage,
+          // which I don't want
+          automaticallyImplyLeading: false,
           title: StreamBuilder(
               stream: Firestore.instance.collection('posts').snapshots(),
               builder: (context, snapshot) {

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:location/location.dart';
+import 'package:wasteagram/screens/homepage.dart';
 
 class NewEntry extends StatefulWidget {
+  String url;
+  NewEntry({Key key, this.url}) : super(key: key);
   static const routeName = '/new-entry';
 
   @override
@@ -33,7 +36,10 @@ class _NewEntryState extends State<NewEntry> {
           appBar: AppBar(
             leading: IconButton(
               icon: Icon(Icons.arrow_back, color: Colors.white),
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MyHomePage()),
+              ),
             ),
             title: Text('New Entry'),
           ),
