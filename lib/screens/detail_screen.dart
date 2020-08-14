@@ -20,9 +20,14 @@ class DetailScreen extends StatelessWidget {
         ),
         home: Scaffold(
           appBar: AppBar(
-            leading: IconButton(
-              icon: Icon(Icons.arrow_back, color: Colors.white),
-              onPressed: () => Navigator.of(context).pop(),
+            leading: Semantics(
+              button: true,
+              enabled: true,
+              onTapHint: 'Go back to homepage.',
+              child: IconButton(
+                icon: Icon(Icons.arrow_back, color: Colors.white),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
             ),
             title: Text('Detail Screen'),
           ),

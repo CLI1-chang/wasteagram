@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
 class Post {
@@ -7,7 +6,6 @@ class Post {
   double latitude;
   double longitude;
   int quantity;
-  DocumentReference reference;
 
   Post() {
     this.quantity = 0;

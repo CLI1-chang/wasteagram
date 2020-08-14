@@ -43,11 +43,16 @@ class _NewEntryState extends State<NewEntry> {
         ),
         home: Scaffold(
           appBar: AppBar(
-            leading: IconButton(
-              icon: Icon(Icons.arrow_back, color: Colors.white),
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => MyHomePage()),
+            leading: Semantics(
+              button: true,
+              enabled: true,
+              onTapHint: 'Go back to homepage.',
+              child: IconButton(
+                icon: Icon(Icons.arrow_back, color: Colors.white),
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyHomePage()),
+                ),
               ),
             ),
             title: Text('New Entry'),
@@ -84,29 +89,34 @@ class _NewEntryState extends State<NewEntry> {
                             post.quantity = int.parse(value);
                           }),
                     ),
-                    RaisedButton(
-                        color: Colors.blueGrey,
-                        child: Text('Upload'),
-                        onPressed: () async {
-                          if (formKey.currentState.validate()) {
-                            formKey.currentState.save();
-                            addPostData();
-                            Firestore.instance
-                                .collection('posts')
-                                .document()
-                                .setData({
-                              'quantity': post.quantity,
-                              'date': post.date,
-                              'latitude': post.latitude,
-                              'longitude': post.longitude,
-                              'imageURL': post.imageURL,
-                            });
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => MyHomePage()));
-                          }
-                        }),
+                    Semantics(
+                      button: true,
+                      enabled: true,
+                      onTapHint: 'Upload post to database',
+                      child: RaisedButton(
+                          color: Colors.blueGrey,
+                          child: Text('Upload'),
+                          onPressed: () async {
+                            if (formKey.currentState.validate()) {
+                              formKey.currentState.save();
+                              addPostData();
+                              Firestore.instance
+                                  .collection('posts')
+                                  .document()
+                                  .setData({
+                                'quantity': post.quantity,
+                                'date': post.date,
+                                'latitude': post.latitude,
+                                'longitude': post.longitude,
+                                'imageURL': post.imageURL,
+                              });
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MyHomePage()));
+                            }
+                          }),
+                    ),
                   ],
                 ),
               ),

@@ -27,6 +27,7 @@ dependencies:
   intl:
   firebase_storage:
   image_picker:
+  test:
   
   flutter:
     sdk: flutter

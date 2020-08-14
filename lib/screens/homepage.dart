@@ -12,31 +12,36 @@ class MyHomePage extends StatelessWidget {
   Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
     DateTime now = document['date'].toDate();
     String formattedDate = DateFormat('EEEE, MMM d, y').format(now);
-    return ListTile(
-      title: Row(
-        children: [
-          Expanded(
-            child: Text(
-              formattedDate,
-              style: Theme.of(context).textTheme.headline6,
+    return Semantics(
+      button: true,
+      enabled: true,
+      onTapHint: 'Visit post\'s detail screen.',
+      child: ListTile(
+        title: Row(
+          children: [
+            Expanded(
+              child: Text(
+                formattedDate,
+                style: Theme.of(context).textTheme.headline6,
+              ),
             ),
-          ),
-          Container(
-            padding: const EdgeInsets.all(10.0),
-            child: Text(
-              document['quantity'].toString(),
-              style: Theme.of(context).textTheme.headline4,
+            Container(
+              padding: const EdgeInsets.all(10.0),
+              child: Text(
+                document['quantity'].toString(),
+                style: Theme.of(context).textTheme.headline4,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => DetailScreen(document: document)),
+          );
+        },
       ),
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => DetailScreen(document: document)),
-        );
-      },
     );
   }
 
@@ -77,15 +82,19 @@ class MyHomePage extends StatelessWidget {
             }
             return Center(child: CircularProgressIndicator());
           }),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => CameraScreen()),
-          );
-        },
-        child: Icon(Icons.photo_camera),
-      ),
+      floatingActionButton: Semantics(
+          button: true,
+          enabled: true,
+          onTapHint: 'New Post Button. Requests Photo permissions.',
+          child: FloatingActionButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => CameraScreen()),
+              );
+            },
+            child: Icon(Icons.photo_camera),
+          )),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
