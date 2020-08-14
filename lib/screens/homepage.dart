@@ -43,21 +43,35 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
-      ),
+          title: StreamBuilder(
+              stream: Firestore.instance.collection('posts').snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData &&
+                    snapshot.data.documents != null &&
+                    snapshot.data.documents.length > 0) {
+                  int total = 0;
+                  snapshot.data.documents
+                      .forEach((idx) => total += idx.data['quantity']);
+                  return Text('Wasteagram - $total');
+                }
+                return Text('Wasteagram');
+              })),
       body: StreamBuilder(
           stream: Firestore.instance
               .collection('posts')
               .orderBy("date", descending: true)
               .snapshots(),
           builder: (context, snapshot) {
-            if (snapshot.data.documents.isEmpty)
-              return Center(child: CircularProgressIndicator());
-            return ListView.builder(
-              itemCount: snapshot.data.documents.length,
-              itemBuilder: (context, index) =>
-                  _buildListItem(context, snapshot.data.documents[index]),
-            );
+            if (snapshot.hasData &&
+                snapshot.data.documents != null &&
+                snapshot.data.documents.length > 0) {
+              return ListView.builder(
+                itemCount: snapshot.data.documents.length,
+                itemBuilder: (context, index) =>
+                    _buildListItem(context, snapshot.data.documents[index]),
+              );
+            }
+            return Center(child: CircularProgressIndicator());
           }),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

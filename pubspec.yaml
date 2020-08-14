@@ -23,9 +23,8 @@ environment:
 dependencies:
 
   cloud_firestore:
-
+  location: 
   intl:
-
   image_picker:
   
   flutter:
