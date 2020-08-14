@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class DetailScreen extends StatefulWidget {
+class DetailScreen extends StatelessWidget {
   static const routeName = '/detail-screen';
+  DocumentSnapshot document;
+  DetailScreen({Key key, this.document}) : super(key: key);
 
   @override
-  _DetailScreenState createState() => _DetailScreenState();
-}
-
-class _DetailScreenState extends State<DetailScreen> {
-  final formKey = GlobalKey<FormState>();
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData.dark().copyWith(
+        primaryColor: Colors.blueGrey,
+        accentColor: Colors.amber,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
       home: Scaffold(
         appBar: AppBar(
           leading: IconButton(

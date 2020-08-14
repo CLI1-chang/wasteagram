@@ -32,6 +32,11 @@ class _NewEntryState extends State<NewEntry> {
       return Center(child: CircularProgressIndicator());
     } else {
       return MaterialApp(
+        theme: ThemeData.dark().copyWith(
+          primaryColor: Colors.blueGrey,
+          accentColor: Colors.amber,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
         home: Scaffold(
           appBar: AppBar(
             leading: IconButton(

@@ -33,7 +33,8 @@ class MyHomePage extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => DetailScreen()),
+          MaterialPageRoute(
+              builder: (context) => DetailScreen(document: document)),
         );
       },
     );
@@ -84,7 +85,6 @@ class MyHomePage extends StatelessWidget {
           );
         },
         child: Icon(Icons.photo_camera),
-        backgroundColor: Colors.blue,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );

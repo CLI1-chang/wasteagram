@@ -35,12 +35,19 @@ class _CameraScreenState extends State<CameraScreen> {
     }
   }
 
+  @override
   void initState() {
+    super.initState();
     getImage();
   }
 
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData.dark().copyWith(
+        primaryColor: Colors.blueGrey,
+        accentColor: Colors.amber,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
       home: Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -49,6 +56,8 @@ class _CameraScreenState extends State<CameraScreen> {
           ),
           title: Text('Choose Photo'),
         ),
+        // database takes a while to load so we should have a loading circle
+        // before page redirects to NewEntry()
         body: Center(child: CircularProgressIndicator()),
       ),
     );
