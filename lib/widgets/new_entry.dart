@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import 'package:location/location.dart';
-import 'package:wasteagram/screens/homepage.dart';
+import 'package:wasteagram/widgets/homepage.dart';
 import 'package:wasteagram/models/posts.dart';
 
 class NewEntry extends StatefulWidget {

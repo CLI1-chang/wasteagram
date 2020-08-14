@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:wasteagram/screens/homepage.dart';
-import 'package:wasteagram/screens/new_entry.dart';
+import 'package:wasteagram/widgets/homepage.dart';
+import 'package:wasteagram/widgets/new_entry.dart';
 
 class CameraScreen extends StatefulWidget {
   static const routeName = '/detail-screen';
@@ -19,10 +19,11 @@ class _CameraScreenState extends State<CameraScreen> {
   Future getImage() async {
     String unique = DateTime.now().toString();
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
-    setState(() {
-      image = File(pickedFile.path);
-    });
     if (image != null) {
+      // setting state outside this conditional breaks app if user hits cancel
+      setState(() {
+        image = File(pickedFile.path);
+      });
       StorageReference storageRef =
           FirebaseStorage.instance.ref().child('$unique');
       StorageUploadTask uploadTask = storageRef.putFile(image);
