@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import 'package:location/location.dart';
 import 'package:wasteagram/screens/homepage.dart';
+import 'package:wasteagram/models/posts.dart';
 
 class NewEntry extends StatefulWidget {
   String url;
@@ -16,6 +17,7 @@ class NewEntry extends StatefulWidget {
 class _NewEntryState extends State<NewEntry> {
   LocationData locationData;
   final formKey = GlobalKey<FormState>();
+  Post post = Post();
 
   @override
   void initState() {
@@ -65,26 +67,45 @@ class _NewEntryState extends State<NewEntry> {
                     Container(
                       width: 300.0,
                       margin: const EdgeInsets.only(bottom: 25.0),
-                      child: TextField(
-                        style: TextStyle(
-                          color: Colors.black,
-                        ),
-                        decoration: new InputDecoration(
-                            labelText: "Number of items wasted"),
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [
-                          WhitelistingTextInputFormatter.digitsOnly
-                        ],
-                      ),
+                      child: TextFormField(
+                          style: TextStyle(
+                            color: Colors.blueGrey,
+                            fontSize: 20.0,
+                          ),
+                          decoration: new InputDecoration(
+                              labelText: "Number of items wasted"),
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            WhitelistingTextInputFormatter.digitsOnly
+                          ],
+                          validator: (value) =>
+                              value.isEmpty ? "Quantity cannot be blank" : null,
+                          onSaved: (value) {
+                            post.quantity = int.parse(value);
+                          }),
                     ),
                     RaisedButton(
-                        color: Colors.white,
-                        child: Text('Submit',
-                            style: TextStyle(
-                              color: Colors.black,
-                            )),
+                        color: Colors.blueGrey,
+                        child: Text('Upload'),
                         onPressed: () async {
-                          formKey.currentState.save();
+                          if (formKey.currentState.validate()) {
+                            formKey.currentState.save();
+                            addPostData();
+                            Firestore.instance
+                                .collection('posts')
+                                .document()
+                                .setData({
+                              'quantity': post.quantity,
+                              'date': post.date,
+                              'latitude': post.latitude,
+                              'longitude': post.longitude,
+                              'imageURL': post.imageURL,
+                            });
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => MyHomePage()));
+                          }
                         }),
                   ],
                 ),
@@ -94,5 +115,12 @@ class _NewEntryState extends State<NewEntry> {
         ),
       );
     }
+  }
+
+  void addPostData() {
+    post.latitude = locationData.latitude;
+    post.longitude = locationData.longitude;
+    post.date = DateTime.now();
+    post.imageURL = widget.url;
   }
 }
