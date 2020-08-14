@@ -19,11 +19,11 @@ class _CameraScreenState extends State<CameraScreen> {
   Future getImage() async {
     String unique = DateTime.now().toString();
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
-    if (image != null) {
-      // setting state outside this conditional breaks app if user hits cancel
+    if (pickedFile != null) {
       setState(() {
         image = File(pickedFile.path);
       });
+      // setting state outside this conditional breaks app if user hits cancel
       StorageReference storageRef =
           FirebaseStorage.instance.ref().child('$unique');
       StorageUploadTask uploadTask = storageRef.putFile(image);
