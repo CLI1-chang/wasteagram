@@ -28,6 +28,7 @@ dependencies:
   firebase_storage:
   image_picker:
   test:
+  firebase_analytics:
   
   flutter:
     sdk: flutter
